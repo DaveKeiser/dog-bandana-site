@@ -593,23 +593,49 @@ function renderProductPage(product) {
   });
 }
 
+async function getJson(url) {
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) throw new Error(`${url} → ${res.status}`);
+  return res.json();
+}
+
+async function loadProducts() {
+  // API first (when server.js is running), then fallback to local JSON for static dev
+  try {
+    return await getJson("/api/products");
+  } catch {
+    return await getJson("products.json");
+  }
+}
+
 async function startup() {
   loadCart();
+  renderCartBadge();
 
+  // Support both ?id=... and ?slug=...
   const id = getQueryParam("id");
-  if (!id) {
+  const slug = getQueryParam("slug");
+  const key = (slug || id || "").trim();
+
+  if (!key) {
     mountEl.innerHTML = `<div class="p-6 text-slate-600">Missing product id.</div>`;
-    renderCartBadge();
     return;
   }
 
-  const productsRes = await fetch("/api/products");
-  PRODUCTS = await productsRes.json();
+  try {
+    PRODUCTS = await loadProducts();
+  } catch (err) {
+    console.error("Failed to load products:", err);
+    mountEl.innerHTML = `<div class="p-6 text-slate-600">Could not load products.</div>`;
+    return;
+  }
 
-  const p = PRODUCTS.find((x) => x.id === id);
+  const p =
+    PRODUCTS.find((x) => String(x.id) === key) ||
+    PRODUCTS.find((x) => String(x.slug || x.handle || "") === key);
+
   if (!p) {
     mountEl.innerHTML = `<div class="p-6 text-slate-600">Product not found.</div>`;
-    renderCartBadge();
     return;
   }
 
@@ -617,8 +643,6 @@ async function startup() {
   if (crumbNameEl) crumbNameEl.textContent = p.name;
 
   renderProductPage(p);
-
-  renderCartBadge();
   renderCart();
 }
 
