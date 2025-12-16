@@ -20,13 +20,28 @@
       <nav class="text-sm flex gap-4 items-center">
         <a href="index.html#products" class="hover:text-emerald-700">Shop</a>
         <a href="index.html#about" class="hover:text-emerald-700">About</a>
-        <button
-          id="cartButton"
-          class="relative px-3 py-1 rounded-full border border-emerald-300 hover:bg-emerald-50"
-          type="button"
-        >
-          Cart <span id="cartCount" class="ml-1 text-emerald-700">0</span>
-        </button>
+        <button id="cartButton" type="button"
+  class="inline-flex items-center justify-center rounded-full hover:bg-teal-50 px-2 py-2"
+  aria-label="Open cart"
+>
+  <span class="relative inline-block">
+    <img
+      src="public/images/cart-dog.png"
+      alt=""
+      class="w-[52px] h-[52px] object-contain"
+      draggable="false"
+    />
+
+    <span
+      id="cartCount"
+      class="absolute top-[9px] left-[3px] min-w-5 h-5 px-1 rounded-full bg-teal-600 text-white text-xs font-semibold flex items-center justify-center"
+    >
+      0
+    </span>
+  </span>
+</button>
+
+
       </nav>
     </div>
   </header>
