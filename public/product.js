@@ -356,6 +356,16 @@ function renderProductPage(product) {
   if (opt.colors && Array.isArray(opt.colors)) {
     selectedColor = opt.colors[0]?.value || "";
   }
+  // Custom note (always show, with safe default)
+  const customNote =
+    product.details?.customNote || "Name printed in white. Text centered.";
+
+  const customNoteHtml = `
+    <div class="mt-3 text-sm text-slate-700">
+      ${escapeHtml(customNote)}
+    </div>
+  `;
+
 
   mountEl.innerHTML = `
     <div class="grid md:grid-cols-2 gap-6 p-6">
