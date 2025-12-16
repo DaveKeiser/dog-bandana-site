@@ -7,7 +7,7 @@
  * - Quick View modal for options like size / name / special request
  * - Cart stores per-item options (size, dog name, note, color)
  */
-// cart edit consistency branch
+// cart edit consistency branch   and again
 
 // ------------------------------
 // STATE
