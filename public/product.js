@@ -493,6 +493,35 @@ function renderProductPage(product) {
     </div>
   `;
 
+// Wire View Cart button
+const openCartBtn = document.getElementById("pOpenCart");
+if (openCartBtn) {
+  openCartBtn.addEventListener("click", () => {
+    const drawer = document.getElementById("cartDrawer");
+    if (drawer) drawer.classList.remove("translate-x-full");
+  });
+}
+
+
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("#pOpenCart");
+  if (!btn) return;
+
+  
+
+  // Try clicking the header cart button (your known-good opener)
+  const headerCartBtn = document.getElementById("cartButton");
+  if (headerCartBtn) {
+    headerCartBtn.click();
+    return;
+  }
+
+  // Fallback: open drawer directly
+  const drawer = document.getElementById("cartDrawer");
+  if (drawer) drawer.classList.remove("translate-x-full");
+});
+
+
   // Bandana-only size guide link
   const sizeGuide = document.getElementById("pSizeGuide");
   if (sizeGuide) {
