@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gratitude Forge Shop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .card-hover {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-white text-slate-900 min-h-screen flex flex-col">
+
+  <!-- ================= HEADER ================= -->
+  <header class="border-b border-slate-200 bg-white/80 backdrop-blur sticky top-0 z-20">
+    <div class="max-w-5xl mx-auto flex items-center justify-between px-4 py-3">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🐾</span>
+        <span class="font-semibold text-lg">Gratitude Forge</span>
+      </div>
+      <nav class="text-sm flex gap-4 items-center">
+        <a href="#products" class="hover:text-emerald-700">Shop</a>
+        <a href="#about" class="hover:text-emerald-700">About</a>
+        <button
+          id="cartButton"
+          class="relative px-3 py-1 rounded-full border border-emerald-300 hover:bg-emerald-50"
+          type="button"
+        >
+          Cart <span id="cartCount" class="ml-1 text-emerald-700">0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="max-w-5xl mx-auto px-4 py-10 fade-in">
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h1 class="text-3xl md:text-4xl font-semibold mb-4">
+          Handmade dog bandanas with extra heart.
+        </h1>
+        <p class="text-slate-600 mb-6">
+          Sewn in small batches, tested by real dogs, and approved by humans with good taste.
+        </p>
+        <a
+          href="#products"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-400 font-medium hover:bg-emerald-300"
+        >
+          Shop bandanas ➜
+        </a>
+      </div>
+
+      <div class="relative">
+        <div class="w-full aspect-[4/3] rounded-3xl bg-gradient-to-tr from-emerald-500/20 via-fuchsia-500/10 to-sky-500/20 blur-2xl absolute -inset-4 -z-10"></div>
+        <div class="bg-white border border-slate-200 rounded-3xl p-4 shadow-xl card-hover">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="h-10 w-10 rounded-full bg-emerald-500 flex items-center justify-center text-xl">🐶</div>
+            <div>
+              <p class="text-sm text-slate-600">Average shop rating</p>
+              <p class="text-lg font-semibold text-emerald-700">4.9 / 5</p>
+            </div>
+          </div>
+          <p class="text-sm text-slate-400 italic">
+            “Bandanas are gorgeous, sturdy, and my dog struts like he owns the block.”
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRODUCTS ================= -->
+  <main id="products" class="max-w-5xl mx-auto px-4 pb-16">
+    <h2 class="text-2xl font-semibold mb-4">Shop</h2>
+    <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- injected by main.js -->
+    </div>
+  </main>
+
+  <!-- ================= BLOG ================= -->
+  <section id="blog" class="border-t border-slate-200 bg-slate-200">
+    <div class="max-w-5xl mx-auto px-4 py-10">
+      <h2 class="text-2xl font-semibold mb-2">From the bench (blog)</h2>
+      <p class="text-slate-600 mb-6 text-sm">
+        Quick updates, sizing tips, and whatever the dogs approve this week.
+      </p>
+      <div id="blogGrid" class="grid md:grid-cols-2 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about" class="border-t border-slate-200 bg-slate-50">
+    <div class="max-w-5xl mx-auto px-4 py-8 text-sm text-slate-600">
+      <h3 class="font-semibold text-slate-900 mb-2">About Gratitude Forge</h3>
+      <p>
+        Small-batch dog bandanas, sewn with love, coffee, and a little dog hair.
+        Every purchase helps us donate bandanas to rescue pups.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= CART DRAWER ================= -->
+  <div
+    id="cartDrawer"
+    class="fixed top-0 right-0 h-full w-80 bg-white border-l border-slate-200 shadow-2xl translate-x-full transition-transform duration-200 flex flex-col z-30"
+  >
+    <div class="flex items-center justify-between px-4 py-3 border-b border-slate-200">
+      <h3 class="font-semibold">Your Cart</h3>
+      <button id="closeCart" class="text-sm hover:text-emerald-600" type="button">Close</button>
+    </div>
+
+    <div id="cartItems" class="flex-1 overflow-y-auto px-4 py-3 text-sm"></div>
+
+    <div class="border-t border-slate-200 px-4 py-3 text-sm">
+      <div class="flex justify-between mb-2">
+        <span>Total</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <button
+        id="checkoutButton"
+        class="w-full mt-2 px-4 py-2 rounded-full bg-emerald-400 hover:bg-emerald-300 font-medium"
+        type="button"
+      >
+        Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= QUICK VIEW MODAL ================= -->
+  <div id="modalOverlay" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-40 p-4">
+    <div class="w-full max-w-2xl bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200">
+        <h3 id="modalTitle" class="font-semibold text-lg">Product</h3>
+        <button id="modalClose" class="text-slate-500 hover:text-slate-900" type="button">Close</button>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-5 p-5">
+        <div class="bg-slate-100 rounded-2xl overflow-hidden">
+          <img id="modalImage" class="w-full h-full object-cover aspect-[4/5]" alt="" />
+        </div>
+
+        <div class="grid gap-3">
+          <p id="modalDesc" class="text-sm text-slate-600"></p>
+
+          <!-- SIZE -->
+          <div id="modalSizeWrap" class="hidden">
+            <label class="text-xs text-slate-600">
+              <span id="modalSizeLabel">Size</span> <span class="text-red-600">*</span>
+              <select id="modalSize" class="mt-1 w-full border border-slate-200 rounded-xl px-3 py-2">
+                <option value="">Select size…</option>
+              </select>
+            </label>
+            <p id="modalSizeError" class="hidden text-xs text-red-600 mt-1">
+              Please choose a size.
+            </p>
+          </div>
+
+          <!-- DOG NAME -->
+          <div id="modalDogNameWrap" class="hidden">
+            <label class="text-xs text-slate-600">
+              Dog’s name (type "blank" for none)
+              <input
+                id="modalDogName"
+                maxlength="15"
+                class="mt-1 w-full border border-slate-200 rounded-xl px-3 py-2"
+                placeholder="e.g., Shelby"
+              />
+            </label>
+            <p id="modalDogNameError" class="hidden text-xs text-red-600 mt-1">
+              Please enter dog's name or type "blank".
+            </p>
+          </div>
+
+          <!-- NOTE -->
+          <div id="modalNoteWrap" class="hidden">
+            <label class="text-xs text-slate-600">
+              Special request (optional)
+              <textarea
+                id="modalNote"
+                class="mt-1 w-full border border-slate-200 rounded-xl px-3 py-2"
+                rows="3"
+                placeholder="font/design changes, note to staff, etc."
+              ></textarea>
+            </label>
+          </div>
+
+          <div class="flex gap-3 mt-2">
+            <button
+              id="modalAddToCart"
+              class="flex-1 px-4 py-2 rounded-full bg-emerald-600 text-white hover:bg-emerald-500"
+              type="button"
+            >
+              Add to cart
+            </button>
+            <button
+              id="modalSave"
+              class="px-4 py-2 rounded-full border border-slate-200 hover:bg-slate-50"
+              type="button"
+            >
+              Save
+            </button>
+            <button
+              id="modalUpdateItem"
+              class="hidden flex-1 px-4 py-2 rounded-full bg-slate-900 text-white hover:bg-slate-800"
+              type="button"
+            >
+              Update item
+            </button>
+          </div>
+
+          <p class="text-xs text-slate-500">
+            “Save” updates your product request. “Add to cart” adds this to your cart.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

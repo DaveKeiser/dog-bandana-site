@@ -1,0 +1,132 @@
+[
+  {
+    "id": "bandana-001",
+    "name": "Spice Pawtrol Bandana",
+    "price": 18,
+    "image": "/images/bandana-001/image1.jpg",
+    "images": [
+      "/images/bandana-001/image1.jpg",
+      "/images/bandana-001/image2.jpg",
+      "/images/bandana-001/image3.jpg"
+    ],
+    "description": "Bold, spicy bandana for dogs with main character energy.",
+    "ratingAverage": 4.902631578947369,
+    "ratingCount": 76,
+    "ratingTotal": 372.6,
+    "tags": ["bandana"],
+    "features": [
+      "Slides onto collar (no tying needed)",
+      "Personalization available (up to 15 characters)",
+      "Reversible and comfy for everyday wear",
+      "Handmade with reinforced stitching"
+    ],
+    "details": {
+      "materials": "Cotton fabric with reinforced stitching.",
+      "care": "Machine wash cold. Lay flat or hang dry.",
+      "sizingNote": "Measure your dog’s neck and choose the range that fits best. If between sizes, size up.",
+      "shipping": "Ships in 1–3 business days."
+    },
+    "options": {
+      "sizesRequired": true,
+      "sizeLabel": "Size (dog neck circumference)",
+      "sizes": [
+        { "value": "XS", "label": "XS (8–10\")" },
+        { "value": "S", "label": "S (10–15\")" },
+        { "value": "M", "label": "M (14–20\")" },
+        { "value": "L", "label": "L (18–26\")" },
+        { "value": "XL", "label": "XL (24–30\")" }
+      ],
+      "dogName": true,
+      "dogNamePrompt": true,
+      "note": true
+    }
+  },
+  {
+    "id": "bandana-002",
+    "name": "Merry Miles Bandana",
+    "price": 20,
+    "image": "/images/bandana-002/image1.jpg",
+    "images": [
+      "/images/bandana-002/image1.jpg",
+      "/images/bandana-002/image2.jpg",
+      "/images/bandana-002/image3.jpg"
+    ],
+    "description": "Holiday road-trip vibes for your adventure pup.",
+    "ratingAverage": 4.878378378378378,
+    "ratingCount": 74,
+    "ratingTotal": 361,
+    "tags": ["bandana"],
+    "features": [
+      "Slides onto collar (no tying needed)",
+      "Personalization available (up to 15 characters)",
+      "Festive look without being itchy or stiff",
+      "Handmade with reinforced stitching"
+    ],
+    "details": {
+      "materials": "Cotton fabric with reinforced stitching.",
+      "care": "Machine wash cold. Lay flat or hang dry.",
+      "sizingNote": "Measure your dog’s neck and choose the range that fits best. If between sizes, size up.",
+      "shipping": "Ships in 1–3 business days."
+    },
+    "options": {
+      "sizesRequired": true,
+      "sizeLabel": "Size (dog neck circumference)",
+      "sizes": [
+        { "value": "XS", "label": "XS (8–10\")" },
+        { "value": "S", "label": "S (10–15\")" },
+        { "value": "M", "label": "M (14–20\")" },
+        { "value": "L", "label": "L (18–26\")" },
+        { "value": "XL", "label": "XL (24–30\")" }
+      ],
+      "dogName": true,
+      "dogNamePrompt": true,
+      "note": true
+    }
+  },
+  {
+    "id": "poop-bags",
+    "name": "Doggie Poop Bags",
+    "price": 9,
+    "image": "/images/poop-bags/image1.jpg",
+    "images": [
+      "/images/poop-bags/image1.jpg",
+      "/images/poop-bags/image2.jpg"
+    ],
+    "description": "Strong, leak-proof, and oddly satisfying to tear off.",
+    "tags": ["accessory"],
+    "features": [
+      "Strong and leak-resistant",
+      "Easy-tear perforation",
+      "Pocket-friendly roll size"
+    ],
+    "details": {
+      "materials": "Durable plastic film.",
+      "care": "Store in a cool, dry place.",
+      "sizingNote": "",
+      "shipping": "Ships in 1–3 business days."
+    },
+    "options": {
+      "colors": [
+        {
+          "value": "forest",
+          "label": "Forest",
+          "swatch": "#0f766e",
+          "image": "/images/poopbags-forest.jpg"
+        },
+        {
+          "value": "sky",
+          "label": "Sky",
+          "swatch": "#0284c7",
+          "image": "/images/poopbags-sky.jpg"
+        },
+        {
+          "value": "rose",
+          "label": "Rose",
+          "swatch": "#e11d48",
+          "image": "/images/poopbags-rose.jpg"
+        }
+      ],
+      "colorsRequired": true
+    }
+  }
+]
