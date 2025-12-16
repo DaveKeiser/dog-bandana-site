@@ -831,17 +831,34 @@ checkoutButtonEl?.addEventListener("click", async () => {
 // ------------------------------
 // STARTUP
 // ------------------------------
+async function getJson(url) {
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) throw new Error(`${url} → ${res.status}`);
+  return res.json();
+}
+
 async function startup() {
   loadCart();
 
   try {
-    const [productsRes, postsRes] = await Promise.all([
-      fetch("/api/products"),
-      fetch("/api/posts"),
-    ]);
+    // Products: API first (when server.js is running), fallback to local JSON for simple static testing
+    try {
+      PRODUCTS = await getJson("/api/products");
+    } catch {
+      PRODUCTS = await getJson("products.json");
+    }
 
-    PRODUCTS = await productsRes.json();
-    const posts = await postsRes.json();
+    // Posts: optional
+    let posts = [];
+    try {
+      posts = await getJson("/api/posts");
+    } catch {
+      try {
+        posts = await getJson("posts.json");
+      } catch {
+        posts = [];
+      }
+    }
 
     renderProducts();
     renderPosts(posts);
@@ -851,5 +868,6 @@ async function startup() {
     console.error("Startup failed:", err);
   }
 }
+
 
 document.addEventListener("DOMContentLoaded", startup);

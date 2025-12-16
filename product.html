@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Product • Gratitude Forge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .card-hover { transition: transform .2s ease, box-shadow .2s ease; }
+    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,.10); }
+  </style>
+</head>
+
+<body class="bg-white text-slate-900 min-h-screen flex flex-col">
+
+  <!-- HEADER -->
+  <header class="border-b border-slate-200 bg-white/80 backdrop-blur sticky top-0 z-20">
+    <div class="max-w-5xl mx-auto flex items-center justify-between px-4 py-3">
+      <a href="./index.html" class="flex items-center gap-2">
+        <span class="text-2xl">🐾</span>
+        <span class="font-semibold text-lg">Gratitude Forge</span>
+      </a>
+      <nav class="text-sm flex gap-4 items-center">
+        <a href="./index.html#products" class="hover:text-emerald-700">Shop</a>
+        <a href="./index.html#about" class="hover:text-emerald-700">About</a>
+        <button
+          id="cartButton"
+          class="relative px-3 py-1 rounded-full border border-emerald-300 hover:bg-emerald-50"
+          type="button"
+        >
+          Cart <span id="cartCount" class="ml-1 text-emerald-700">0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <main class="max-w-5xl mx-auto w-full px-4 py-8">
+    <div class="text-sm text-slate-500 mb-4">
+      <a href="./index.html#products" class="hover:text-emerald-700">Shop</a>
+      <span class="mx-2">/</span>
+      <span id="crumbName">Product</span>
+    </div>
+
+    <div id="productMount" class="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden">
+      <!-- injected by product.js -->
+    </div>
+
+    <div class="mt-8 text-sm text-slate-600">
+      <a href="./index.html#products" class="inline-flex items-center gap-2 hover:text-emerald-700">
+        ← Back to shop
+      </a>
+    </div>
+  </main>
+
+  <!-- CART DRAWER -->
+  <div
+    id="cartDrawer"
+    class="fixed top-0 right-0 h-full w-80 bg-white border-l border-slate-200 shadow-2xl translate-x-full transition-transform duration-200 flex flex-col z-30"
+  >
+    <div class="flex items-center justify-between px-4 py-3 border-b border-slate-200">
+      <h3 class="font-semibold">Your Cart</h3>
+      <button id="closeCart" class="text-sm hover:text-emerald-600" type="button">Close</button>
+    </div>
+
+    <div id="cartItems" class="flex-1 overflow-y-auto px-4 py-3 text-sm"></div>
+
+    <div class="border-t border-slate-200 px-4 py-3 text-sm">
+      <div class="flex justify-between mb-2">
+        <span>Total</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <button
+        id="checkoutButton"
+        class="w-full mt-2 px-4 py-2 rounded-full bg-emerald-400 hover:bg-emerald-300 font-medium"
+        type="button"
+      >
+        Checkout
+      </button>
+    </div>
+  </div>
+
+  <script src="public/product.js" defer></script>
+</body>
+</html>
