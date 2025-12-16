@@ -463,6 +463,8 @@ function renderProductPage(product) {
           }
         </div>
 
+          ${customNoteHtml}
+
         <div class="flex gap-3 pt-1">
           <button id="pAdd"
             class="flex-1 px-4 py-2 rounded-full bg-emerald-600 text-white hover:bg-emerald-500"
@@ -476,9 +478,7 @@ function renderProductPage(product) {
           </button>
         </div>
 
-        <p class="text-xs text-slate-500">
-          Dog names are limited to 15 characters (because thread is not infinite).
-        </p>
+         
 
         <div class="mt-2">
           <h2 class="text-lg font-semibold">Features</h2>
