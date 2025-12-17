@@ -3,6 +3,7 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const Stripe = require("stripe");
+const multer = require("multer");
 require("dotenv").config();
 
 const app = express();
@@ -13,9 +14,34 @@ const PORT = process.env.PORT || 3000;
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY || "";
 const stripe = stripeSecretKey ? new Stripe(stripeSecretKey) : null;
 
+// Middleware
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 
+// ----------------------
+// BASIC AUTH (Admin only)
+// ----------------------
+function requireAdmin(req, res, next) {
+  const header = req.headers.authorization || "";
+  const [type, encoded] = header.split(" ");
+  if (type !== "Basic" || !encoded) {
+    return res.status(401).set("WWW-Authenticate", "Basic").send("Auth required");
+  }
+
+  const decoded = Buffer.from(encoded, "base64").toString("utf8");
+  const [user, pass] = decoded.split(":");
+
+  const ok =
+    user === (process.env.ADMIN_USER || "admin") &&
+    pass === (process.env.ADMIN_PASS || "changeme");
+
+  if (!ok) return res.status(403).send("Forbidden");
+  next();
+}
+
+// ----------------------
+// PRODUCTS
+// ----------------------
 const PRODUCTS_FILE = path.join(__dirname, "products.json");
 
 function readProducts() {
@@ -27,10 +53,59 @@ function writeProducts(products) {
   fs.writeFileSync(PRODUCTS_FILE, JSON.stringify(products, null, 2), "utf-8");
 }
 
-// GET all products
+// Public: GET all products (storefront uses this)
 app.get("/api/products", (req, res) => {
   const products = readProducts();
   res.json(products);
+});
+
+// Admin: GET all products
+app.get("/api/admin/products", requireAdmin, (req, res) => {
+  const products = readProducts();
+  res.json(products);
+});
+
+// Admin: SAVE all products (replace the whole array)
+app.post("/api/admin/products", requireAdmin, (req, res) => {
+  const products = req.body;
+
+  if (!Array.isArray(products)) {
+    return res.status(400).json({ error: "Body must be an array of products" });
+  }
+
+  // light sanity: ensure each product has an id
+  for (const p of products) {
+    if (!p.id) {
+      // if someone used slug/name, fallback so you don’t lose work
+      if (p.slug) p.id = p.slug;
+      else return res.status(400).json({ error: "Each product must have an id (or slug)" });
+    }
+  }
+
+  writeProducts(products);
+  res.json({ ok: true, count: products.length });
+});
+
+// ----------------------
+// UPLOADS (Admin)
+// ----------------------
+const UPLOAD_DIR = path.join(__dirname, "public", "uploads");
+fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, UPLOAD_DIR),
+  filename: (req, file, cb) => {
+    const safe = file.originalname.replace(/[^a-zA-Z0-9._-]/g, "_");
+    cb(null, `${Date.now()}-${safe}`);
+  },
+});
+const upload = multer({ storage });
+
+// Admin: upload an image, returns public URL
+app.post("/api/admin/upload", requireAdmin, upload.single("image"), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+  const url = `/uploads/${req.file.filename}`;
+  res.json({ ok: true, url });
 });
 
 // ----------------------
@@ -49,6 +124,9 @@ app.get("/api/posts", (req, res) => {
   res.json(posts);
 });
 
+// ----------------------
+// RATINGS
+// ----------------------
 
 // Rate a product
 app.post("/api/products/:id/rate", (req, res) => {
@@ -77,7 +155,9 @@ app.post("/api/products/:id/rate", (req, res) => {
   res.json({ success: true, product });
 });
 
+// ----------------------
 // Stripe Checkout (we'll fully wire this on Day 2)
+// ----------------------
 app.post("/api/create-checkout-session", async (req, res) => {
   if (!stripe) {
     return res.status(500).json({ error: "Stripe is not configured yet." });

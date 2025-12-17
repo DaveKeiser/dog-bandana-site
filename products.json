@@ -1,5 +1,16 @@
 [
   {
+    "id": "bandana-0001",
+    "name": "Frost Warning dog Bandana",
+    "price": 0,
+    "tags": [],
+    "description": "The forecast? 100% chance of cool.  Name and snowflake will be printed in white glitter.\n\n100% Preshrunk Cotton.  Machine wash/dry gently.  Hand crafted in Missouri, USA.",
+    "images": [
+      "/uploads/1765928844300-dbdbFrostWarningTEMP2name.png",
+      "/uploads/1765928886245-dogtransforstwarnng.png"
+    ]
+  },
+  {
     "id": "bandana-001",
     "name": "Spice Pawtrol Bandana",
     "price": 18,
@@ -13,7 +24,9 @@
     "ratingAverage": 4.902631578947369,
     "ratingCount": 76,
     "ratingTotal": 372.6,
-    "tags": ["bandana"],
+    "tags": [
+      "bandana"
+    ],
     "features": [
       "Slides onto collar (no tying needed)",
       "Personalization available (up to 15 characters)",
@@ -31,11 +44,26 @@
       "sizesRequired": true,
       "sizeLabel": "Size (dog neck circumference)",
       "sizes": [
-        { "value": "XS", "label": "XS (8–10\")" },
-        { "value": "S", "label": "S (10–15\")" },
-        { "value": "M", "label": "M (14–20\")" },
-        { "value": "L", "label": "L (18–26\")" },
-        { "value": "XL", "label": "XL (24–30\")" }
+        {
+          "value": "XS",
+          "label": "XS (8–10\")"
+        },
+        {
+          "value": "S",
+          "label": "S (10–15\")"
+        },
+        {
+          "value": "M",
+          "label": "M (14–20\")"
+        },
+        {
+          "value": "L",
+          "label": "L (18–26\")"
+        },
+        {
+          "value": "XL",
+          "label": "XL (24–30\")"
+        }
       ],
       "dogName": true,
       "dogNamePrompt": true,
@@ -56,7 +84,9 @@
     "ratingAverage": 4.878378378378378,
     "ratingCount": 74,
     "ratingTotal": 361,
-    "tags": ["bandana"],
+    "tags": [
+      "bandana"
+    ],
     "features": [
       "Slides onto collar (no tying needed)",
       "Personalization available (up to 15 characters)",
@@ -74,11 +104,26 @@
       "sizesRequired": true,
       "sizeLabel": "Size (dog neck circumference)",
       "sizes": [
-        { "value": "XS", "label": "XS (8–10\")" },
-        { "value": "S", "label": "S (10–15\")" },
-        { "value": "M", "label": "M (14–20\")" },
-        { "value": "L", "label": "L (18–26\")" },
-        { "value": "XL", "label": "XL (24–30\")" }
+        {
+          "value": "XS",
+          "label": "XS (8–10\")"
+        },
+        {
+          "value": "S",
+          "label": "S (10–15\")"
+        },
+        {
+          "value": "M",
+          "label": "M (14–20\")"
+        },
+        {
+          "value": "L",
+          "label": "L (18–26\")"
+        },
+        {
+          "value": "XL",
+          "label": "XL (24–30\")"
+        }
       ],
       "dogName": true,
       "dogNamePrompt": true,
@@ -95,7 +140,9 @@
       "/images/poop-bags/image2.jpg"
     ],
     "description": "Strong, leak-proof, and oddly satisfying to tear off.",
-    "tags": ["accessory"],
+    "tags": [
+      "accessory"
+    ],
     "features": [
       "Strong and leak-resistant",
       "Easy-tear perforation",
